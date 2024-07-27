@@ -1,4 +1,5 @@
 import { setProductQuantity } from "@/actions/set-product-quantity.action";
+import { auth } from "@/auth";
 import CartEntry from "@/components/CartEntry";
 import { getCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/format";
@@ -9,6 +10,11 @@ export const metadata = {
 
 export default async function CartPage() {
   const cart = await getCart();
+    const session = await auth()
+  if (!session) return <div className="flex flex-col items-center text-center p-10"><h2 className="text-2xl">Not authorized</h2>
+    <p>Please sign in.</p>
+  </div>
+
 
   return (
     <div>

@@ -4,11 +4,12 @@ import Link from "next/link";
 import ShoppingCartButton from "./ShopingCartButton";
 import { getCart } from "@/lib/cart";
 import { searchProducts } from "@/actions/search-products.action";
-
-
+import UserMenuButton from "./UserMenuButton";
+import { auth } from "@/auth";
 
 
 export default async function Navbar() {
+  const session = await auth();
   const cart = await getCart();
 
   return (
@@ -31,6 +32,7 @@ export default async function Navbar() {
             </div>
           </form>
           <ShoppingCartButton cart={cart} />
+          <UserMenuButton session={session} />
         </div>
       </div>
     </div>
